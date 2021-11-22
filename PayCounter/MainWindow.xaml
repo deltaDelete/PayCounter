@@ -1,0 +1,56 @@
+﻿<Window x:Class="PayCounter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PayCounter"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="450" MinWidth="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42"/>
+            <RowDefinition Height="22"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <DockPanel Height="42">
+                <Button Content="+" Click="AddPayment_Click" Width="32" Height="32"/>
+                <Button Content="-" Click="RemovePayment_Click" Width="32" Height="32"/>
+                <Separator Width="40" RenderTransformOrigin="0.35,0.35" Margin="0,0,0,0">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <TextBlock Text="с" Margin="5 5 0 5" VerticalAlignment="Center" FontSize="16"/>
+                <DatePicker x:Name="DatePickerFrom" Padding="5" Margin="5"/>
+                <TextBlock Text="по" Margin="5 5 0 5" VerticalAlignment="Center" FontSize="16"/>
+                <DatePicker x:Name="DatePickerTo" Padding="5" Margin="5"/>
+                <TextBlock Text="Категория:" Margin="5 5 0 5" VerticalAlignment="Center" FontSize="16"/>
+                <ComboBox x:Name="category" Padding="5" MinWidth="100" MaxWidth="200" Margin="5"/>
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Right">
+                <Button x:Name="SelectBtn" Click="SelectBtn_Click"  Content="Выбрать" HorizontalAlignment="Left"/>
+                <Button x:Name="ClearBtn" Click="ClearBtn_Click" Content="Очистить" HorizontalAlignment="Left"/>
+                <Button x:Name="ReportBtn" Click="ReportBtn_Click" Content="Отчет" HorizontalAlignment="Left"/>
+            </DockPanel>
+        </DockPanel>
+        <Separator Margin="5" Grid.Row="1"/>
+        <ScrollViewer Grid.Row="2">
+            <DataGrid x:Name="ListView" Margin="0" VerticalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Description}" Width="200" Header="Наименование платежа"/>
+                    <DataGridTextColumn Binding="{Binding Quantity}" Width="100" Header="Количество"/>
+                    <DataGridTextColumn Binding="{Binding Price, StringFormat=c, ConverterCulture='ru-RU'}" Width="100" Header="Цена"/>
+                    <DataGridTextColumn Binding="{Binding Cost, StringFormat=c, ConverterCulture='ru-RU'}" Width="100" Header="Сумма"/>
+                    <DataGridTextColumn Binding="{Binding Date, StringFormat=d}" Width="100" Header="Дата"/>
+                    <DataGridTextColumn Binding="{Binding Category.Name}" Width="200" Header="Категория"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+    </Grid>
+</Window>
